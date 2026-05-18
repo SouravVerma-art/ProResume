@@ -1,4 +1,7 @@
 {
+  "engines": {
+  "node": "20.x"
+  },
   "name": "resume-builder",
   "version": "1.0.0",
   "description": "Full-stack resume builder application",
