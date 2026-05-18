@@ -27,10 +27,10 @@ const BuilderHeader = ({
             </div>
             
             <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 pr-4 border-r border-slate-200">
+                <div className="flex items-center gap-2 pr-4 border-r border-slate-200 min-w-[120px]">
                     <button
                         onClick={onVisibilityChange}
-                        className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${
+                        className={`w-20 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all ${
                             publicStatus 
                             ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
                             : 'bg-slate-50 text-slate-500 border border-slate-200'
@@ -38,15 +38,17 @@ const BuilderHeader = ({
                     >
                         {publicStatus ? 'Public' : 'Private'}
                     </button>
-                    {publicStatus && (
-                        <button
-                            onClick={onShare}
-                            className="p-1.5 text-slate-400 hover:text-indigo-600 transition-colors"
-                            title="Share Link"
-                        >
-                            <Share2Icon size={18} />
-                        </button>
-                    )}
+                    <div className="w-8 flex items-center justify-center">
+                        {publicStatus && (
+                            <button
+                                onClick={onShare}
+                                className="p-1.5 text-slate-400 hover:text-indigo-600 transition-colors"
+                                title="Share Link"
+                            >
+                                <Share2Icon size={18} />
+                            </button>
+                        )}
+                    </div>
                 </div>
                 
                 <div className="flex items-center gap-4">
@@ -63,7 +65,7 @@ const BuilderHeader = ({
                 <button
                     onClick={onSave}
                     disabled={isSaving}
-                    className="px-6 py-2 bg-indigo-600 text-white rounded-lg font-bold text-sm shadow-lg shadow-indigo-500/20 hover:bg-indigo-700 transition-all disabled:opacity-50"
+                    className="w-28 h-9 bg-indigo-600 text-white rounded-lg font-bold text-sm shadow-lg shadow-indigo-500/20 hover:bg-indigo-700 transition-all disabled:opacity-50 flex items-center justify-center"
                 >
                     {isSaving ? 'Saving...' : 'Save'}
                 </button>

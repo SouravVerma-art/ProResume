@@ -51,6 +51,8 @@ const ResumeBuilder = () => {
     accent_color: '#3B82F6',
     section_order: ['personal', 'summary', 'experience', 'education', 'project', 'publications', 'leadership', 'skills', 'hobbies', 'certifications'],
     public: false,
+    cover_letter: '',
+    target_job_description: '',
   });
 
   const [activeSectionId, setActiveSectionId] = useState('personal');
@@ -70,8 +72,13 @@ const ResumeBuilder = () => {
       try {
         const { data } = await api.get('/api/resumes/get/' + resumeId);
         if (data.resume) {
-          const loadedSectionOrder = data.resume.section_order || ['personal', 'summary', 'experience', 'education', 'project', 'publications', 'leadership', 'skills', 'hobbies', 'certifications'];
+          const defaultOrder = ['personal', 'summary', 'experience', 'education', 'project', 'publications', 'leadership', 'skills', 'hobbies', 'certifications'];
+          let loadedSectionOrder = data.resume.section_order || defaultOrder;
           
+          // Ensure hobbies and certifications are present in the order if missing
+          if (!loadedSectionOrder.includes('hobbies')) loadedSectionOrder.push('hobbies');
+          if (!loadedSectionOrder.includes('certifications')) loadedSectionOrder.push('certifications');
+
           setResumeData({
             ...data.resume,
             section_order: loadedSectionOrder,
@@ -108,7 +115,12 @@ const ResumeBuilder = () => {
         resumeId,
         resumeData: resumeData
       });
-      setResumeData(data.resume);
+      
+      // Only sync back if it's a manual save to avoid autosave loops
+      if (showToast) {
+        setResumeData(data.resume);
+      }
+      
       setLastSaved(new Date());
       if (showToast) toast.success("Saved successfully!", { id: toastId });
     } catch (error) {

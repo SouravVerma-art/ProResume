@@ -3,9 +3,9 @@ import { Loader2, Sparkles, Copy, Download } from 'lucide-react';
 import api from '../configs/api';
 import toast from 'react-hot-toast';
 
-const CoverLetterForm = ({ resumeData }) => {
-  const [jobDescription, setJobDescription] = useState('');
-  const [generatedLetter, setGeneratedLetter] = useState('');
+const CoverLetterForm = ({ resumeData, onChange }) => {
+  const [jobDescription, setJobDescription] = useState(resumeData.target_job_description || '');
+  const [generatedLetter, setGeneratedLetter] = useState(resumeData.cover_letter || '');
   const [isGenerating, setIsGenerating] = useState(false);
 
   const generateCoverLetter = async () => {
@@ -21,12 +21,28 @@ const CoverLetterForm = ({ resumeData }) => {
         jobDescription,
       });
       setGeneratedLetter(data.coverLetter);
+      onChange({ 
+        cover_letter: data.coverLetter,
+        target_job_description: jobDescription 
+      });
       toast.success("Cover letter generated!");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to generate cover letter");
     } finally {
       setIsGenerating(false);
     }
+  };
+
+  const handleTextChange = (e) => {
+    const value = e.target.value;
+    setGeneratedLetter(value);
+    onChange({ cover_letter: value });
+  };
+
+  const handleJobDescChange = (e) => {
+    const value = e.target.value;
+    setJobDescription(value);
+    onChange({ target_job_description: value });
   };
 
   const copyToClipboard = () => {
@@ -52,7 +68,7 @@ const CoverLetterForm = ({ resumeData }) => {
         </div>
         <textarea
           value={jobDescription}
-          onChange={(e) => setJobDescription(e.target.value)}
+          onChange={handleJobDescChange}
           rows={5}
           className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none text-sm"
           placeholder="Paste job description here..."
@@ -90,7 +106,7 @@ const CoverLetterForm = ({ resumeData }) => {
           </div>
           <textarea
             value={generatedLetter}
-            onChange={(e) => setGeneratedLetter(e.target.value)}
+            onChange={handleTextChange}
             rows={12}
             className="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none text-sm font-serif leading-relaxed"
           />

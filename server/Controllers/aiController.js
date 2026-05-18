@@ -229,7 +229,10 @@ Resume Data: ${JSON.stringify(resumeData)}
 Job Description: ${jobDescription}`;
 
     const result = await model.generateContent(prompt);
-    const coverLetter = result.response.text().trim();
+    let coverLetter = result.response.text().trim();
+    
+    // Clean up any markdown code blocks if the AI included them
+    coverLetter = coverLetter.replace(/^```[a-z]*\n/i, "").replace(/\n```$/i, "").replace(/^```/i, "").replace(/```$/i, "");
     
     return res.status(200).json({ coverLetter });
   } catch (error) {
@@ -266,9 +269,12 @@ Job Description: ${jobDescription}`;
     const result = await model.generateContent(prompt);
     let responseText = result.response.text().trim();
     
-    responseText = responseText.replace(/^```json\s*/i, "").replace(/^```\s*/i, "").replace(/\s*```$/i, "");
-    
-    return res.status(200).json(JSON.parse(responseText));
+    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error("AI response did not contain valid JSON");
+    }
+
+    return res.status(200).json(JSON.parse(jsonMatch[0]));
   } catch (error) {
     console.error("Scoring error:", error);
     return res.status(500).json({ message: "Failed to score resume", detail: toClientSafeAiError(error) });

@@ -129,7 +129,7 @@ const MinimalTemplate = ({ data, accentColor }) => {
                         </div>
                     </section>
                 );
-            case 'skills':
+            case 'skills': {
                 const allSkillsMin = [];
                 if (data.skills) {
                     if (data.skills.languages) allSkillsMin.push(...data.skills.languages);
@@ -148,6 +148,7 @@ const MinimalTemplate = ({ data, accentColor }) => {
                         </div>
                     </section>
                 );
+            }
             case 'hobbies':
                 return data.hobbies && data.hobbies.length > 0 && (
                     <section key="hobbies" className="mb-10">

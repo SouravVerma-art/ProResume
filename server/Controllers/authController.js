@@ -41,6 +41,10 @@ export const registerUser = async (req, res) => {
             password: hashedPassword,
         });
 
+        console.log(`👤 New user registered: ${user.email}`);
+        console.log(`📂 Database: ${User.db.name}`);
+        console.log(`📦 Collection: ${User.collection.name}`);
+
         return res.status(201).json({
             message: "Account created successfully",
             token: createToken(user._id.toString()),
@@ -120,6 +124,9 @@ export const googleAuth = async (req, res) => {
                 googleId: sub,
                 picture,
             });
+            console.log(`👤 New user registered (Google): ${user.email}`);
+            console.log(`📂 Database: ${User.db.name}`);
+            console.log(`📦 Collection: ${User.collection.name}`);
         } else {
             // Update googleId or picture if not present
             let updated = false;

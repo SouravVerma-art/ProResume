@@ -56,9 +56,11 @@ export const AuthProvider = ({ children }) => {
         if (!isMounted) return;
         persistAuth(token, data.user);
       })
-      .catch(() => {
+      .catch((error) => {
         if (!isMounted) return;
-        clearAuth();
+        if (error.response?.status === 401) {
+          clearAuth();
+        }
       })
       .finally(() => {
         if (isMounted) {

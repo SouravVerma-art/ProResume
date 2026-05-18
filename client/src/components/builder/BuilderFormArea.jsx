@@ -45,7 +45,12 @@ const BuilderFormArea = ({
             case 'leadership':
                 return <LeadershipForm data={resumeData.leadership} onChange={(data) => setResumeData(prev => ({ ...prev, leadership: data }))} />;
             case 'coverLetter':
-                return <CoverLetterForm resumeData={resumeData} />;
+                return (
+                    <CoverLetterForm 
+                        resumeData={resumeData} 
+                        onChange={(data) => setResumeData(prev => ({ ...prev, ...data }))} 
+                    />
+                );
             case 'analysis':
                 return <ATSAnalysisForm resumeData={resumeData} />;
             default:

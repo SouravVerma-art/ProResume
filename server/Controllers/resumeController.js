@@ -145,21 +145,22 @@ export const updateResume = async (req, res) => {
         }
 
         // Prepare update object
+        const { _id, userId: _u, ...safeResumeData } = resumeData;
+        
         const updateFields = {
-            ...resumeData,
-            // Ensure these aren't overwritten by client data if not intended
-            userId: existingResume.userId, 
+            ...safeResumeData,
+            userId: existingResume.userId, // Ensure userId remains correct
         };
 
         // Handle nested personal_info merge carefully
-        if (resumeData.personal_info) {
+        if (safeResumeData.personal_info) {
             updateFields.personal_info = {
                 ...existingResume.personal_info.toObject(),
-                ...resumeData.personal_info,
+                ...safeResumeData.personal_info,
             };
         }
 
-        if (resumeData.personal_info !== undefined && !updateFields?.personal_info?.full_name?.trim()) {
+        if (safeResumeData.personal_info !== undefined && !updateFields?.personal_info?.full_name?.trim()) {
             return res.status(400).json({ message: "Please add your name before saving" });
         }
 

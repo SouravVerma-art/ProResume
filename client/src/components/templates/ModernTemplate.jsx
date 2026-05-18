@@ -158,7 +158,7 @@ const ModernTemplate = ({ data, accentColor }) => {
 						</div>
 					</section>
 				);
-			case 'skills':
+			case 'skills': {
 				const allSkillsMod = [];
 				if (data.skills) {
 					if (data.skills.languages) allSkillsMod.push(...data.skills.languages);
@@ -184,6 +184,7 @@ const ModernTemplate = ({ data, accentColor }) => {
 						</div>
 					</section>
 				);
+			}
 			case 'hobbies':
 				return data.hobbies && data.hobbies.length > 0 && (
 					<section key="hobbies" className="mb-8 p-8 pt-0">

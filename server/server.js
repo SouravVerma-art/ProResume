@@ -15,7 +15,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+// Force port 8081 because 8080 is often taken by other services (like Apache/httpd)
+const PORT = process.env.PORT && process.env.PORT !== "8080" ? process.env.PORT : 8081;
 
 // Security Middleware
 app.use(helmet({
@@ -48,7 +49,7 @@ app.use("/api/ai", aiRouter);
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
 // Handle React Routing (SPA)
-app.get("*", (req, res) => {
+app.get("*all", (req, res) => {
   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
 });
 

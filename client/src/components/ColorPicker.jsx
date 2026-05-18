@@ -20,7 +20,7 @@ const ColorPicker = ({ slectedColor, onChange }) => {
   return (
     <div className='relative'>
       <button
-        className='flex items-center gap-1 text-sm text-purple-600 bg-gradient-to-br from-purple-50 to-purple-100 ring-purple-300 hover:ring transition-all px-3 py-2 rounded-lg'
+        className='flex items-center justify-center gap-1 text-sm text-purple-600 bg-gradient-to-br from-purple-50 to-purple-100 ring-purple-300 hover:ring transition-all px-3 py-2 rounded-lg sm:w-28'
         onClick={() => setIsOpen(!isOpen)}
       >
         <Palette size={16} />

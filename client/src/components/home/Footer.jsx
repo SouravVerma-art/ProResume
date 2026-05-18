@@ -20,13 +20,6 @@ const Footer = () => {
         { icon: Mail, href: "mailto:support@proresume.com", label: "Email" },
     ];
 
-    const featureIcons = [
-        { icon: FileText, label: "Resume Builder" },
-        { icon: Sparkles, label: "AI Powered" },
-        { icon: Briefcase, label: "Career Growth" },
-        { icon: User, label: "Personalized" },
-    ];
-
     return (
         <footer className="max-w-7xl mx-auto px-6 mb-12">
             <div className="glass-panel rounded-[3rem] p-12 md:p-20 overflow-hidden relative border border-white/20 shadow-2xl bg-white/40">

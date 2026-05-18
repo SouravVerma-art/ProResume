@@ -126,7 +126,7 @@ const ClassicTemplate = ({ data }) => {
             ))}
           </section>
         );
-      case 'skills':
+      case 'skills': {
         const allSkills = [];
         if (data.skills) {
           if (data.skills.languages) allSkills.push(...data.skills.languages);
@@ -146,6 +146,7 @@ const ClassicTemplate = ({ data }) => {
             </div>
           </section>
         );
+      }
       case 'publications':
         return data.publications?.length > 0 && (
           <section key="publications" className="border-b border-gray-200 mb-6 pb-3">

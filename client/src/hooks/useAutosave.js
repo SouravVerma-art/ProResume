@@ -3,6 +3,11 @@ import { useEffect, useRef } from 'react';
 const useAutosave = (callback, delay = 1000, dependencies = []) => {
     const timerRef = useRef(null);
     const initialRender = useRef(true);
+    const callbackRef = useRef(callback);
+
+    useEffect(() => {
+        callbackRef.current = callback;
+    }, [callback]);
 
     useEffect(() => {
         if (initialRender.current) {
@@ -15,7 +20,7 @@ const useAutosave = (callback, delay = 1000, dependencies = []) => {
         }
 
         timerRef.current = setTimeout(() => {
-            callback();
+            callbackRef.current();
         }, delay);
 
         return () => {
@@ -23,7 +28,8 @@ const useAutosave = (callback, delay = 1000, dependencies = []) => {
                 clearTimeout(timerRef.current);
             }
         };
-    }, dependencies);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [...dependencies, delay]);
 };
 
 export default useAutosave;

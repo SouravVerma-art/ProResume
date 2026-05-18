@@ -73,7 +73,7 @@ const AuthPage = () => {
       await googleLogin(response.credential);
       toast.success('Signed in with Google');
       navigate(redirectTo, { replace: true });
-    } catch (error) {
+    } catch {
       toast.error('Google sign-in failed');
     }
   };

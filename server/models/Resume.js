@@ -4,7 +4,7 @@ const ResumeSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true, index: true },
     title: { type: String, default: 'Untitled Resume' },
     template: { type: String, default: "classic" },
-    section_order: { type: [String], default: ["personal", "summary", "experience", "education", "project", "publications", "leadership", "skills"] },
+    section_order: { type: [String], default: ["personal", "summary", "experience", "education", "project", "publications", "leadership", "skills", "hobbies", "certifications"] },
     views: { type: Number, default: 0 },
     public: { type: Boolean, default: false },
     accent_color: { type: String, default: "#3B82F6" },
@@ -82,6 +82,8 @@ const ResumeSchema = new mongoose.Schema({
             link: { type: String, default: '' },
         }
     ],
+    cover_letter: { type: String, default: '' },
+    target_job_description: { type: String, default: '' },
 }, {timestamps: true, minimize: false})
 
 const Resume = mongoose.model('Resume', ResumeSchema);
