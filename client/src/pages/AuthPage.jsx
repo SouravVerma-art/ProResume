@@ -98,8 +98,8 @@ const AuthPage = () => {
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-200/40 rounded-full blur-[120px] animate-aurora-2"></div>
       </div>
 
-      <Link 
-        to="/" 
+      <Link
+        to="/"
         className="fixed top-12 left-12 hidden lg:flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-indigo-600 transition-all group z-20"
       >
         <ArrowLeftIcon className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -109,20 +109,17 @@ const AuthPage = () => {
       <div className="w-full max-w-[480px] relative z-10">
         <div className="text-center mb-10">
           <Link to="/" className="inline-flex items-center gap-3 mb-10 hover:opacity-80 transition-opacity">
-            <div className="size-14 bg-indigo-600 rounded-[1.25rem] flex items-center justify-center shadow-2xl shadow-indigo-500/40">
-                <img src="/logo.svg" alt="logo" className="h-8 w-auto" />
-            </div>
             <span className="text-3xl font-black tracking-tighter text-slate-900">
                 Pro<span className="text-indigo-600">Resume</span>
             </span>
           </Link>
-          
+
           <h1 className="text-4xl font-black text-slate-900 tracking-tighter mb-3">
             {currentMode === 'register' ? 'Join the future.' : 'Welcome back.'}
           </h1>
           <p className="text-slate-500 font-medium max-w-sm mx-auto">
-            {currentMode === 'register' 
-              ? 'Start building high-conversion, AI-powered resumes today.' 
+            {currentMode === 'register'
+              ? 'Start building high-conversion, AI-powered resumes today.'
               : 'Enter your credentials to access your professional workspace.'}
           </p>
         </div>
@@ -231,7 +228,7 @@ const AuthPage = () => {
             </p>
           </div>
         </div>
-        
+
         <p className="mt-10 text-center text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-60">
            Enterprise-grade security • Powered by Gemini AI
         </p>
