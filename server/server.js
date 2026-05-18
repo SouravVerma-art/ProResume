@@ -16,7 +16,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 // Force port 8081 because 8080 is often taken by other services (like Apache/httpd)
-const PORT = process.env.PORT && process.env.PORT !== "8080" ? process.env.PORT : 8081;
+// const PORT = process.env.PORT && process.env.PORT !== "8080" ? process.env.PORT : 8081;
+const PORT = process.env.PORT || 8081;
 
 // Security Middleware
 app.use(helmet({
@@ -38,20 +39,29 @@ await connectDB();
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(cors());
+// app.use(cors());
+
+const corsOptions = {
+  // origin: process.env.CLIENT_URL || "*",
+  origin: process.env.CLIENT_URL || true,
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 // API Routes
 app.use("/api/auth", authRouter);
 app.use("/api/resumes", resumeRouter);
 app.use("/api/ai", aiRouter);
 
-// Serve Static Files
-app.use(express.static(path.join(__dirname, "../client/dist")));
+// // Serve Static Files
+// app.use(express.static(path.join(__dirname, "../client/dist")));
 
-// Handle React Routing (SPA)
-app.get("*all", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
-});
+// // Handle React Routing (SPA)
+// app.get("*all", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client/dist", "index.html"));
+// });
 
 // Global Error Handler (Must be last)
 app.use(errorHandler);
